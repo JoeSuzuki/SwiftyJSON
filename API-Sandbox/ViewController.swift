@@ -22,11 +22,17 @@ class ViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
+       // Do any additional setup after loading the view, typically from a nib.
+       // exerciseOne()
+       // exerciseTwo()
+       // exerciseThree()
         
-        exerciseOne()
-        exerciseTwo()
-        exerciseThree()
+//        Creates a request to apiToContact
+//        Validates the request to ensure it worked
+//        Passes the JSON response to a closure
+//        In the closure we handle success and failure with a switch statement
+//        If successful, we create a JSON object from the response's result's value
+//        After that, you can work with it just like you did on the previous exercises!
         
         let apiToContact = "https://itunes.apple.com/us/rss/topmovies/limit=25/json"
         // This code will call the iTunes top 25 movies endpoint listed above
@@ -34,8 +40,30 @@ class ViewController: UIViewController {
             switch response.result {
             case .success:
                 if let value = response.result.value {
-                    let json = JSON(value)
                     
+                    let json = JSON(value)
+                    let countMovies = json["feed"]["entry"].count
+                    let randomNumber = arc4random_uniform(UInt32(countMovies))
+                    
+                    let selectedMovie = json["feed"]["entry"][Int(randomNumber)]
+                    
+                    guard let movieTitle = selectedMovie["im.name"]["label"].string else {
+                        return
+                    }
+                    guard let rightOwner = selectedMovie["rights"]["label"].string else {
+                        return
+                    }
+                    guard let releaseDate = selectedMovie["im:releaseDate"]["label"].string else {
+                        return
+                    }
+                    guard let price = selectedMovie["im:price"]["attributes"]["amount"].string else {
+                        return
+                    }
+                    
+                    self.movieTitleLabel.text = movieTitle
+                    self.rightsOwnerLabel.text = rightOwner
+                    self.releaseDateLabel.text = releaseDate
+                    self.priceLabel.text = price
                     // Do what you need to with JSON here!
                     // The rest is all boiler plate code you'll use for API requests
                     

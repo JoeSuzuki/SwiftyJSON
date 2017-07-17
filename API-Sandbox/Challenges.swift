@@ -76,7 +76,7 @@ internal func exerciseTwo() {
     
     // Uncomment this print statement when you are ready to check your code!
     
-    print("The top movie is \(topMovie.name) by \(topMovie.rightsOwner). It costs $\(topMovie.price) and was released on \(topMovie.releaseDate). You can view it on iTunes here: \(topMovie.link)")
+     print("The top movie is \(topMovie.name) by \(topMovie.rightsOwner). It costs $\(topMovie.price) and was released on \(topMovie.releaseDate). You can view it on iTunes here: \(topMovie.link)")
 }
 
 internal func exerciseThree() {
@@ -102,9 +102,12 @@ internal func exerciseThree() {
      
      */
     var allMovies: [Movie] = []
-    
-    
-    
+  
+    for x in allMoviesData {
+        let movie = Movie(json: x)
+        allMovies.append(movie)
+    }
+
     
     /*
      
@@ -113,9 +116,14 @@ internal func exerciseThree() {
      contains the `String` "Disney". Iterate over all the values in `allMovies` to check!
      
      */
-//    print("The following movies are Disney movies:")
+    print("The following movies are Disney movies:")
     
     
+    for x in allMovies {
+        if x.rightsOwner.contains("Disney") {
+            print(x.name)
+        }
+    }
     
     
     /*
@@ -124,9 +132,14 @@ internal func exerciseThree() {
      movie that costs less than $15. Iterate over all the values in `allMovies` to check!
      
      */
-//    print("The following movies are cost less than $15:")
+
+    print("The following movies are cost less than $15:")
     
-    
+    for x in allMovies {
+        if x.price < 15.00 {
+            print(x.name)
+        }
+    }
     
     
     /*
@@ -135,9 +148,14 @@ internal func exerciseThree() {
      each movie released in 2016. Iterate over all the values in `allMovies` to check!
      
      */
-//    print("The following movies were released in 2016:")
+    print("The following movies were released in 2016:")
     
     
-    
+    for x in allMovies  {
+        if x.releaseDate.contains("2016") {
+            print(x.name)
+        }
+        
+    }
     
 }
